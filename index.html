@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <script type="text/javascript" src="js/getDate.js"></script>
+        <link rel="stylesheet" href="css/style.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+        <title>Calendar</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="calendar"></div>
+            <script>
+                var today = new Date();
+                if (today.getMonth() + 1 < 10) {
+                    setCalendarData(today.getFullYear(), "0" + (today.getMonth() + 1), today.getDate());
+                }
+                else {
+                    setCalendarData(today.getFullYear(), "" + (today.getMonth() + 1), today.getDate());
+                }
+            </script>
+            <div id="checkSchedule">
+                <div>일정 확인</div>
+            </div>
+        </div>
+    </body>
+</html>
