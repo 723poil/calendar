@@ -11,20 +11,25 @@ function setCalendarData(year, month, day) {
         0
         ).getDate();
 
-    var prevLastDay = new Date(
-        year,
-        month-1,
-        0
-    ).getDate();
+    var preLastDay;
+
+    if (month != 1) {
+        prevLastDay = new Date(
+            year,
+            month-1,
+            0
+        ).getDate();
+    }
+    else {
+        prevLastDay = new Date(
+            year-1,
+            12,
+            0
+        ).getDate();
+    }
 
     var startDayCount = 1;
     var lastDayCount = 1;
-    
-    calendar_doc += "<div class='title-name'>일정표</div>"
-
-    calendar_doc += "<div id='dateDisplay' style='background-color: rgb(255, 255, 203);'>" + year + "년 " + month + "월 " + setFixDayCount(day) + "일</div>";
-    
-    calendar_doc += "<div id='changeDate'></div></br>"
 
     calendar_doc += "<div class='calendar_week horizontalGutter verticalBottom'>일</div>";
     calendar_doc += "<div class='calendar_week horizontalGutter verticalBottom'>월</div>";

@@ -9,7 +9,20 @@
     </head>
     <body>
         <div id="wrapper">
-            <div id="calendar"></div>
+            <div id="calendar">
+                <div class='title-name'>일정표</div><div id='dateDisplay'></div>
+                <div id='changeDate'>
+                    <div id="changeBorder" style="float:left;">
+                        <button id="leftYearButton" class="button" style="float:left;" onclick="javascript:dyDown('year');">down</button>
+                        <div id="dyYear" class="dy"></div>
+                        <button id="rightYearButton" class="button" style="float: right;" onclick="javascript:dyUp('year');">up</button>
+                    </div><div id="changeBorder" style="float:right;">
+                        <button id="leftMonthButton" class="button" style="float:left;" onclick="javascript:dyDown('month');">down</button>
+                        <div id="dyMonth" class="dy"></div>
+                        <button id="rightMonthButton" class="button" style="float: right;" onclick="javascript:dyUp('month');"">up</button>
+                    </div>
+                </div>
+            </div>
             <script>
                 var today = new Date();
                 if (today.getMonth() + 1 < 10) {
@@ -25,3 +38,154 @@
         </div>
     </body>
 </html>
+<script>
+    var today = new Date();
+
+    var year = today.getFullYear();
+    var month = 1 + today.getMonth();
+    var day = today.getDate();
+
+    toDay(year, month, day);
+
+    var dyyear = year;
+    var dymonth = month;
+    var dyday = day;
+    var dymonthZero = dymonth;
+
+    if(dymonth < 10) {
+        dymonthZero = '0' + dymonthZero;
+    }
+
+    var dyYear = document.getElementById('dyYear');
+    dyYear.innerHTML += dyyear + "년";
+
+    var dyMonth = document.getElementById('dyMonth');
+    dyMonth.innerHTML += dymonthZero + "월";
+
+    function toDay(year, month, day) {
+
+        var dday = day;
+
+        if (day < 10) {
+            dday = '0' + dday;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        var text = year + "년 " + month + "월 " + dday + "일";
+
+        var dateDisplay = document.getElementById('dateDisplay');
+        dateDisplay.innerHTML += text;
+    }
+
+    function dyDown(D) {
+        if (D == 'year') {
+            dyyear -= 1;
+        }
+        else {
+            dymonth -= 1;
+
+            if (dymonth == 0) {
+                dymonth = 12;
+                dyyear -= 1;
+            }
+        }
+
+        var dymonthZero = dymonth;
+
+        if(dymonth < 10) {
+            dymonthZero = '0' + dymonthZero;
+        }
+
+        var dyYear = document.getElementById('dyYear');
+        dyYear.innerHTML = dyyear + "년";
+
+        var dyMonth = document.getElementById('dyMonth');
+        dyMonth.innerHTML = dymonthZero + "월";
+
+        setCalendar();
+    }
+
+    function dyUp(D) {
+        if (D == 'year') {
+            dyyear += 1;
+        }
+        else {
+            dymonth += 1;
+
+            if (dymonth == 13) {
+                dymonth = 1;
+                dyyear += 1;
+            }
+        }
+
+        var dymonthZero = dymonth;
+
+        if(dymonth < 10) {
+            dymonthZero = '0' + dymonthZero;
+        }
+
+        var dyYear = document.getElementById('dyYear');
+        dyYear.innerHTML = dyyear + "년";
+
+        var dyMonth = document.getElementById('dyMonth');
+        dyMonth.innerHTML = dymonthZero + "월";
+
+        setCalendar();
+    }
+
+    function setCalendar() {
+        var setDate = new Date(dyyear, dymonth-1, 1);
+
+        var firstDayName = setDate.getDay();
+
+        var lastDay = new Date(dyyear, dymonth, 0);
+
+        var prevLastDay;
+
+        if (month != 1) {
+            prevLastDay = new Date(
+                dyyear,
+                dymonth-1,
+                0
+            ).getDate();
+        }
+        else {
+            prevLastDay = new Date(
+                dyyear-1,
+                12,
+                0
+            ).getDate();
+        }
+
+        var startDayCount = 1;
+        var lastDayCount = 1;
+
+        for (var i = 0; i < 6; i ++) {
+            for (var j = 0; j < 7; j++) {
+                var calendar_date;
+                if(i == 0 && j < firstDayName) {
+                    calendar_date = document.getElementById('dayblock' + (i*7 + j));
+                    calendar_date.innerHTML = prevLastDay - (firstDayName - 1) + j;
+                    calendar_date.style.backgroundColor="rgb(220, 220, 220)";
+                }
+                else if (startDayCount <= lastDay.getDate()) {
+                    calendar_date = document.getElementById('dayblock' + (i*7 + j));
+                    calendar_date.innerHTML = startDayCount++;
+                    calendar_date.style.backgroundColor="white";
+                    calendar_date.style.fontWeight="normal";
+                    if (startDayCount -1 == day && year == dyyear && month == dymonth) {
+                        calendar_date.style.backgroundColor="rgb(255, 255, 203)";
+                        calendar_date.style.fontWeight="bold";
+                    }
+                }
+                else if ( startDayCount > lastDay.getDate()) {
+                    calendar_date = document.getElementById('dayblock' + (i*7 + j));
+                    calendar_date.innerHTML = lastDayCount++;
+                    calendar_date.style.backgroundColor="rgb(220, 220, 220)";
+                }
+            }
+        }
+    }
+</script>

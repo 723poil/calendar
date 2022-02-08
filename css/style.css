@@ -69,7 +69,7 @@ body {
 .title-name {
     display: inline-block;
     vertical-align: bottom;
-    width: calc(1184px/4);
+    width: calc(1184px/7);
     height:98px;
     padding: 25px;
     font-size:xx-large;
@@ -84,13 +84,13 @@ body {
 #dateDisplay {
     display: inline-block;
     vertical-align: bottom;
-    width: calc(1184px/3);
+    width: calc(1184px/3.5 + 2px);
     height: 98px;
     padding: 25px;
     font-size: xx-large;
     box-sizing: border-box;
     text-align: center;
-    background-color: white;
+    background-color: rgb(255, 255, 203);
     margin-bottom: 2px;
     border-radius: 5px;
 }
@@ -98,12 +98,44 @@ body {
 #changeDate {
     /* display: inline-block; */
     vertical-align: bottom;
-    width: 501px;
+    width: calc(1184px/(7/4) + 6px);
     height: 98px;
-    background-color: white;
     float: right;
     box-sizing: border-box;
     border-radius: 5px;
+}
+
+#changeBorder {
+    vertical-align: bottom;
+    width: calc(1184px/3.5 + 2px);
+    height: 98px;
+    font-size: xx-large;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.dy {
+    display: inline-block;
+    width:197px;
+    height: 98px;
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 5px;
+    text-align: center;
+    padding:25px;
+}
+
+.button {
+    width: 70px;
+    height: 98px;
+    box-sizing: border-box;
+    vertical-align: bottom;
+    text-align: center;
+    background-color: white;
+    border-radius:5px;
+    border: 0;
+    border-right: 1px;
 }
 
 .horizontalGutter {
